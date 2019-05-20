@@ -1,0 +1,63 @@
+﻿@model IEnumerable<WorkplaceOfSecretary.Models.Committee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Chairperson.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberOne.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberThree.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberTwo.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seb.NameOfSEB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Secretary.LastName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Chairperson.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemberOne.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemberThree.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemberTwo.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Seb.NameOfSEB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Secretary.LastName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

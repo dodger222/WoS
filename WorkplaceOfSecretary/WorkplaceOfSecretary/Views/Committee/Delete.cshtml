@@ -1,0 +1,72 @@
+﻿@model WorkplaceOfSecretary.Models.Committee
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+<p class="error">@ViewBag.ErrorMessage</p>
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Committee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Chairperson.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Chairperson.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MemberOne.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberOne.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MemberThree.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberThree.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MemberTwo.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberTwo.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seb.NameOfSEB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seb.NameOfSEB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Secretary.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Secretary.LastName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

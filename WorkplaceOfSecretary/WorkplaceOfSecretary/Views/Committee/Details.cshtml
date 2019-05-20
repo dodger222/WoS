@@ -1,0 +1,66 @@
+﻿@model WorkplaceOfSecretary.Models.Committee
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Committee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Chairperson.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Chairperson.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MemberOne.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberOne.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MemberThree.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberThree.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MemberTwo.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberTwo.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seb.NameOfSEB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seb.NameOfSEB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Secretary.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Secretary.LastName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
