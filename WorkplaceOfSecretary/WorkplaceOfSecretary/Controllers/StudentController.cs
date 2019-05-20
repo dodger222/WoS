@@ -12,51 +12,51 @@ using WorkplaceOfSecretary.Models;
 
 namespace WorkplaceOfSecretary.Controllers
 {
-    public class GroupController : Controller
+    public class StudentController : Controller
     {
         private WoSContext db = new WoSContext();
 
-        // GET: Group
+        // GET: Student
         public ActionResult Index()
         {
-            var groups = db.Groups.Include(g => g.Specialty);
-            return View(groups.ToList());
+            var students = db.Students.Include(s => s.Group);
+            return View(students.ToList());
         }
 
-        // GET: Group/Details/5
+        // GET: Student/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Groups.Find(id);
-            if (group == null)
+            Student student = db.Students.Find(id);
+            if (student == null)
             {
                 return HttpNotFound();
             }
-            return View(group);
+            return View(student);
         }
 
-        // GET: Group/Create
+        // GET: Student/Create
         public ActionResult Create()
         {
-            ViewBag.SpecialtyID = new SelectList(db.Specialties, "ID", "NameOfSpecialty");
+            ViewBag.GroupID = new SelectList(db.Groups, "ID", "NumberOfGroup");
             return View();
         }
 
-        // POST: Group/Create
+        // POST: Student/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Group group)
+        public ActionResult Create(Student student)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    db.Groups.Add(group);
+                    db.Students.Add(student);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -68,38 +68,38 @@ namespace WorkplaceOfSecretary.Controllers
                     "Try again, and if the problem persists " +
                     "see your system administrator.");
             }
-            ViewBag.SpecialtyID = new SelectList(db.Specialties, "ID", "NameOfSpecialty", group.SpecialtyID);
-            return View(group);
+            ViewBag.GroupID = new SelectList(db.Groups, "ID", "NumberOfGroup", student.GroupID);
+            return View(student);
         }
 
-        // GET: Group/Edit/5
+        // GET: Student/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Groups.Find(id);
-            if (group == null)
+            Student student = db.Students.Find(id);
+            if (student == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SpecialtyID = new SelectList(db.Specialties, "ID", "NameOfSpecialty", group.SpecialtyID);
-            return View(group);
+            ViewBag.GroupID = new SelectList(db.Groups, "ID", "NumberOfGroup", student.GroupID);
+            return View(student);
         }
 
-        // POST: Group/Edit/5
+        // POST: Student/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,SpecialtyID,NumberOfGroup,ComissionMembers")] Group group)
+        public ActionResult Edit([Bind(Include = "ID,LastName,FirstName,Patronymic,GroupID,AverageScore,Foreigner")] Student student)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    db.Entry(group).State = EntityState.Modified;
+                    db.Entry(student).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
@@ -111,11 +111,11 @@ namespace WorkplaceOfSecretary.Controllers
                         "see your system administrator.");
                 }
             }
-            ViewBag.SpecialtyID = new SelectList(db.Specialties, "ID", "NameOfSpecialty", group.SpecialtyID);
-            return View(group);
+            ViewBag.GroupID = new SelectList(db.Groups, "ID", "NumberOfGroup", student.GroupID);
+            return View(student);
         }
 
-        // GET: Group/Delete/5
+        // GET: Student/Delete/5
         public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
@@ -126,23 +126,23 @@ namespace WorkplaceOfSecretary.Controllers
             {
                 ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
             }
-            Group group = db.Groups.Find(id);
-            if (group == null)
+            Student student = db.Students.Find(id);
+            if (student == null)
             {
                 return HttpNotFound();
             }
-            return View(group);
+            return View(student);
         }
 
-        // POST: Group/Delete/5
+        // POST: Student/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             try
             {
-                Group group = db.Groups.Find(id);
-                db.Groups.Remove(group);
+                Student student = db.Students.Find(id);
+                db.Students.Remove(student);
                 db.SaveChanges();
             }
             catch (DataException/* dex */)
