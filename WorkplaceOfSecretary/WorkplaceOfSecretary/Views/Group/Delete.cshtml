@@ -1,0 +1,48 @@
+﻿@model WorkplaceOfSecretary.Models.Group
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+<p class="error">@ViewBag.ErrorMessage</p>
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Group</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Specialty.NameOfSpecialty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Specialty.NameOfSpecialty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfGroup)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfGroup)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ComissionMembers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComissionMembers)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

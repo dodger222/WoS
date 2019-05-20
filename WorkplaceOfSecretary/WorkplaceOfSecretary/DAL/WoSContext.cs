@@ -9,7 +9,7 @@ namespace WorkplaceOfSecretary.DAL
 {
     public class WoSContext : DbContext
     {
-        public WoSContext() : base("WoSContext")
+        public WoSContext() : base("DefaultConnection")
         {
         }
 

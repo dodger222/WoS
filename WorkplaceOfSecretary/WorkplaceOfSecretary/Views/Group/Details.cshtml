@@ -1,0 +1,75 @@
+﻿@model WorkplaceOfSecretary.Models.Group
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Group</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Specialty.NameOfSpecialty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Specialty.NameOfSpecialty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfGroup)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfGroup)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ComissionMembers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComissionMembers)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Students)
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Patronymic</th>
+                    <th>Avg score</th>
+                    <th>Foreigner</th>
+                </tr>
+                @foreach (var item in Model.Students)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Patronymic)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AverageScore)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Foreigner)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
