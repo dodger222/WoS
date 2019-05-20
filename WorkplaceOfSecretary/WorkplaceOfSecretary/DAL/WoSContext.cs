@@ -18,5 +18,6 @@ namespace WorkplaceOfSecretary.DAL
         public DbSet<Student> Students { get; set; }
         public DbSet<Rank> Ranks { get; set; }
         public DbSet<Degree> Degrees { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }
