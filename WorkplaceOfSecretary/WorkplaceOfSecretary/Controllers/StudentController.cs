@@ -17,9 +17,16 @@ namespace WorkplaceOfSecretary.Controllers
         private WoSContext db = new WoSContext();
 
         // GET: Student
-        public ActionResult Index()
+        public ViewResult Index(int? groupID)
         {
             var students = db.Students.Include(s => s.Group);
+            if (groupID != null && groupID != 0)
+            {
+                students = students.Where(s => s.GroupID == groupID);
+            }
+            List<Group> groups = db.Groups.ToList();
+            groups.Insert(0, new Group { NumberOfGroup = "Все", ID = 0 });
+            ViewBag.GroupID = new SelectList(groups, "ID", "NumberOfGroup");
             return View(students.ToList());
         }
 
