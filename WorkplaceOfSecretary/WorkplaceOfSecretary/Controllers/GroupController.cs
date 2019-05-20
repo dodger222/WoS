@@ -41,7 +41,19 @@ namespace WorkplaceOfSecretary.Controllers
         // GET: Group/Create
         public ActionResult Create()
         {
-            ViewBag.SpecialtyID = new SelectList(db.Specialties, "ID", "NameOfSpecialty");
+            List<vSpecialty> vSpecialties = new List<vSpecialty>();
+
+            foreach(var item in db.Specialties)
+            {
+                vSpecialty vSpecialty = new vSpecialty();
+
+                vSpecialty.ID = item.ID;
+                vSpecialty.Specialty = item.NumberOfSpecialty + " " + item.NameOfSpecialty;
+
+                vSpecialties.Add(vSpecialty);
+            }
+
+            ViewBag.SpecialtyID = new SelectList(vSpecialties, "ID", "Specialty");
             return View();
         }
 
