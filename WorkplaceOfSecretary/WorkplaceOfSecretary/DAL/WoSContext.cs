@@ -21,5 +21,6 @@ namespace WorkplaceOfSecretary.DAL
         public DbSet<Employee> Employees { get; set; }
         public DbSet<SEB> SEBs { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
+        public DbSet<Committee> Committees { get; set; }
     }
 }
