@@ -514,5 +514,17 @@ namespace WorkplaceOfSecretary.Controllers
             return PartialView(leader);
         }
 
+        // Получение консультантов по id группы
+        public ActionResult GetConsultants(int? id)
+        {
+            Group group = new Group();
+
+            if(id != null)
+            {
+                group = db.Groups.Where(g => g.ID == id).FirstOrDefault();
+            }
+
+            return PartialView(group);
+        }
     }
 }
