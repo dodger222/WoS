@@ -10,5 +10,6 @@ namespace WorkplaceOfSecretary.Models
         public string StLastNameInGen { get; set; }
         public string StFirstNameInGen { get; set; }
         public string StPatronymicInGen { get; set; }
+        public string Specialty { get; set; }
     }
 }

@@ -17,7 +17,15 @@
     <div class="form-group">
         @Html.Label("Выберите группу", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("GroupID", null, htmlAttributes: new { @class = "form-control", id="group" })
+            @Html.DropDownList("GroupID", null, htmlAttributes: new { @class = "form-control", id = "group" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Specialty, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Specialty, new { htmlAttributes = new { @class = "form-control", id = "specialty" } })
+            @Html.ValidationMessageFor(model => model.Specialty, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -66,6 +74,17 @@
                 })
             });
 
+            $('body').on('change', '#group', function () {
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetSpecialty")/' + id,
+                    success: function (data) {
+                        $('#specialty').replaceWith(data);
+                    }
+                })
+            });
+
             $(function () {
 
                 $('#group').change(function()
@@ -90,7 +109,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.StLastNameInGen, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.StLastNameInGen, new { htmlAttributes = new { @class = "form-control", id ="lastNameStudent"} })
+            @Html.EditorFor(model => model.StLastNameInGen, new { htmlAttributes = new { @class = "form-control", id = "lastNameStudent" } })
             @Html.ValidationMessageFor(model => model.StLastNameInGen, "", new { @class = "text-danger" })
         </div>
     </div>

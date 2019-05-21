@@ -20,7 +20,7 @@ namespace WorkplaceOfSecretary.Controllers
 
             groups.AddRange(db.Groups.ToList());
 
-            ViewBag.GroupID = new SelectList(db.Groups, "ID", "NumberOfGroup");
+            ViewBag.GroupID = new SelectList(groups, "ID", "NumberOfGroup");
 
             return View();
         }
@@ -83,6 +83,24 @@ namespace WorkplaceOfSecretary.Controllers
             }
 
             return PartialView(student);
+        }
+
+        // Получение номера и наименования специальности по id группы
+        public ActionResult GetSpecialty(int? id)
+        {
+            vSpecialty vSpecialty = new vSpecialty();
+
+            if (id != null)
+            {
+                Group group = db.Groups.Where(g => g.ID == id).FirstOrDefault();
+
+                Specialty specialty = db.Specialties.Where(s => s.ID == group.SpecialtyID).FirstOrDefault();
+
+                vSpecialty.ID = specialty.ID;
+                vSpecialty.Specialty = specialty.NumberOfSpecialty + " " + specialty.NameOfSpecialty;
+            }
+
+            return PartialView(vSpecialty);
         }
 
     }
