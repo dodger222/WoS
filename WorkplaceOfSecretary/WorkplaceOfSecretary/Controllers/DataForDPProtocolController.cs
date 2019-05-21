@@ -407,5 +407,80 @@ namespace WorkplaceOfSecretary.Controllers
             return PartialView(memberTwo);
         }
 
+        // Получение полного имени третьего члена комиссии по id ГЭКа
+        public ActionResult GetFullNameMemberThree(int? id)
+        {
+            vEmployee memberThree = new vEmployee();
+
+            if (id != null)
+            {
+                Committee committee = new Committee();
+                committee = db.Committees.Where(c => c.SebID == id).FirstOrDefault();
+
+                if (committee != null)
+                {
+                    Employee employee = new Employee();
+                    employee = db.Employees.Where(e => e.ID == committee.MemberThreeID).FirstOrDefault();
+
+                    memberThree.ID = employee.ID;
+                    memberThree.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
+                    memberThree.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
+                    memberThree.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                }
+            }
+
+            return PartialView(memberThree);
+        }
+
+        // Получение фамилии и инициалов третьего члена комиссии по id ГЭКа
+        public ActionResult GetShortNameMemberThreeOne(int? id)
+        {
+            vEmployee memberThree = new vEmployee();
+
+            if (id != null)
+            {
+                Committee committee = new Committee();
+                committee = db.Committees.Where(c => c.SebID == id).FirstOrDefault();
+
+                if (committee != null)
+                {
+                    Employee employee = new Employee();
+                    employee = db.Employees.Where(e => e.ID == committee.MemberThreeID).FirstOrDefault();
+
+                    memberThree.ID = employee.ID;
+                    memberThree.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
+                    memberThree.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
+                    memberThree.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                }
+            }
+
+            return PartialView(memberThree);
+        }
+
+        // Получение инициалов и фамилии третьего члена комиссии по id ГЭКа
+        public ActionResult GetShortNameMemberThreeTwo(int? id)
+        {
+            vEmployee memberThree = new vEmployee();
+
+            if (id != null)
+            {
+                Committee committee = new Committee();
+                committee = db.Committees.Where(c => c.SebID == id).FirstOrDefault();
+
+                if (committee != null)
+                {
+                    Employee employee = new Employee();
+                    employee = db.Employees.Where(e => e.ID == committee.MemberThreeID).FirstOrDefault();
+
+                    memberThree.ID = employee.ID;
+                    memberThree.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
+                    memberThree.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
+                    memberThree.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                }
+            }
+
+            return PartialView(memberThree);
+        }
+
     }
 }

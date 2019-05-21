@@ -217,6 +217,39 @@
                 })
             });
 
+            $('body').on('change', '#seb', function () {
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetFullNameMemberThree")/' + id,
+                    success: function (data) {
+                        $('#fullNameMemberThree').replaceWith(data);
+                    }
+                })
+            });
+
+            $('body').on('change', '#seb', function () {
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetShortNameMemberThreeOne")/' + id,
+                    success: function (data) {
+                        $('#shortNameMemberThreeOne').replaceWith(data);
+                    }
+                })
+            });
+
+            $('body').on('change', '#seb', function () {
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetShortNameMemberThreeTwo")/' + id,
+                    success: function (data) {
+                        $('#shortNameMemberThreeTwo').replaceWith(data);
+                    }
+                })
+            });
+
             $(function () {
 
                 $('#group').change(function()
@@ -322,6 +355,18 @@
             @Html.ValidationMessageFor(model => model.ShortNameMemberTwoOne, "", new { @class = "text-danger" })
             @Html.EditorFor(model => model.ShortNameMemberTwoTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberTwoTwo" } })
             @Html.ValidationMessageFor(model => model.ShortNameMemberTwoTwo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("ФИО третьего члена комиссии", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FullNameMemberThree, new { htmlAttributes = new { @class = "form-control", id = "fullNameMemberThree" } })
+            @Html.ValidationMessageFor(model => model.FullNameMemberThree, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.ShortNameMemberThreeOne, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberThreeOne" } })
+            @Html.ValidationMessageFor(model => model.ShortNameMemberThreeOne, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.ShortNameMemberThreeTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberThreeTwo" } })
+            @Html.ValidationMessageFor(model => model.ShortNameMemberThreeTwo, "", new { @class = "text-danger" })
         </div>
     </div>
 
