@@ -250,6 +250,17 @@
                 })
             });
 
+            $('body').on('change', '#leaderFullName', function () {
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetShortNameLeaderInGen")/' + id,
+                    success: function (data) {
+                        $('#shortNameLeaderInGen').replaceWith(data);
+                    }
+                })
+            });
+
             $(function () {
 
                 $('#group').change(function()
@@ -367,6 +378,15 @@
             @Html.ValidationMessageFor(model => model.ShortNameMemberThreeOne, "", new { @class = "text-danger" })
             @Html.EditorFor(model => model.ShortNameMemberThreeTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberThreeTwo" } })
             @Html.ValidationMessageFor(model => model.ShortNameMemberThreeTwo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Выберите руководителя", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("LeaderID", null, htmlAttributes: new { @class = "form-control", id = "leaderFullName" })
+            @Html.EditorFor(model => model.ShortNameLeaderInGen, new { htmlAttributes = new { @class = "form-control", id = "shortNameLeaderInGen" } })
+            @Html.ValidationMessageFor(model => model.ShortNameLeaderInGen, "", new { @class = "text-danger" })
         </div>
     </div>
 

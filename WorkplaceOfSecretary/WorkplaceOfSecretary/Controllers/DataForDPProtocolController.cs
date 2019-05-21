@@ -26,6 +26,21 @@ namespace WorkplaceOfSecretary.Controllers
 
             ViewBag.SebID = new SelectList(sebs, "ID", "NameOfSEB");
 
+            List<Leader> leaders = new List<Leader>();
+            leaders.Add(null);
+
+            foreach(var employee in db.Employees)
+            {
+                Leader leader = new Leader();
+                leader.ID = employee.ID;
+                leader.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
+                leader.ShortNameInGen = employee.LastNameInGenitive + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
+
+                leaders.Add(leader);
+            }
+
+            ViewBag.LeaderID = new SelectList(leaders, "ID", "FullName");
+
             return View();
         }
 
@@ -480,6 +495,23 @@ namespace WorkplaceOfSecretary.Controllers
             }
 
             return PartialView(memberThree);
+        }
+
+        // Получение фамилии и инициалов руководителя в родительном падеже по id работника
+        public ActionResult GetShortNameLeaderInGen(int? id)
+        {
+            Leader leader = new Leader();
+
+            if (id != null)
+            {
+                Employee employee = db.Employees.Where(e => e.ID == id).FirstOrDefault();
+
+                leader.ID = employee.ID;
+                leader.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
+                leader.ShortNameInGen = employee.LastNameInGenitive + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
+            }
+
+            return PartialView(leader);
         }
 
     }

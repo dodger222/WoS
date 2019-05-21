@@ -33,5 +33,8 @@ namespace WorkplaceOfSecretary.Models
         public string ShortNameMemberThreeOne { get; set; }
         public string ShortNameMemberThreeTwo { get; set; }
 
+        public string FullNameLeader { get; set; }
+        public string ShortNameLeaderInGen { get; set; }
+
     }
 }
