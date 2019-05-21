@@ -1,0 +1,9 @@
+﻿@model IEnumerable<WorkplaceOfSecretary.Models.FullNameStudent>
+
+<select id="student" name="Student" class="form-control">
+    <option value=""></option>
+    @foreach (var item in Model)
+    {
+        <option value="@item.ID">@item.FullName</option>
+    }
+</select>

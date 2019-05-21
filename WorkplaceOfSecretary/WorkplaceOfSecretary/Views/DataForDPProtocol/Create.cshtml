@@ -1,0 +1,119 @@
+﻿@model WorkplaceOfSecretary.Models.DataForDPProtocol
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Student</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.Label("Выберите группу", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("GroupID", null, htmlAttributes: new { @class = "form-control", id="group" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Выберите Студента", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("StudentID", null, htmlAttributes: new { @class = "form-control", id = "student" })
+        </div>
+    </div>
+
+    @section scripts{
+        <script>
+
+            $('body').on('change', '#student', function () {
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetLastNameStudent")/' + id,
+                    success: function (data) {
+                        $('#lastNameStudent').replaceWith(data);
+                    }
+                })
+            });
+
+            $('body').on('change', '#student', function () {
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetFirstNameStudent")/' + id,
+                    success: function (data) {
+                        $('#firstNameStudent').replaceWith(data);
+                    }
+                })
+            });
+
+            $('body').on('change', '#student', function () {
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetPatronymicStudent")/' + id,
+                    success: function (data) {
+                        $('#patronymicStudent').replaceWith(data);
+                    }
+                })
+            });
+
+            $(function () {
+
+                $('#group').change(function()
+                {
+                    // получаем выбранный id
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetStudents")/' + id,
+                        success: function (data) {
+
+                            // заменяем содержимое присланным частичным представлением
+                            $('#student').replaceWith(data);
+                        }
+                    });
+                });
+
+            })
+        </script>
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StLastNameInGen, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.StLastNameInGen, new { htmlAttributes = new { @class = "form-control", id ="lastNameStudent"} })
+            @Html.ValidationMessageFor(model => model.StLastNameInGen, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StFirstNameInGen, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.StFirstNameInGen, new { htmlAttributes = new { @class = "form-control", id = "firstNameStudent" } })
+            @Html.ValidationMessageFor(model => model.StFirstNameInGen, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StPatronymicInGen, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.StPatronymicInGen, new { htmlAttributes = new { @class = "form-control", id = "patronymicStudent" } })
+            @Html.ValidationMessageFor(model => model.StPatronymicInGen, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+
+</div>
+}
