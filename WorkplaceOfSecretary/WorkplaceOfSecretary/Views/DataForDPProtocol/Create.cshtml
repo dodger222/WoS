@@ -53,6 +53,17 @@
                 var id = $(this).val();
                 $.ajax({
                     type: 'GET',
+                    url: '@Url.Action("GetShortNameStudentInDat")/' + id,
+                    success: function (data) {
+                        $('#shortNameStudentInDat').replaceWith(data);
+                    }
+                })
+            });
+
+            $('body').on('change', '#student', function () {
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
                     url: '@Url.Action("GetLastNameStudent")/' + id,
                     success: function (data) {
                         $('#lastNameStudent').replaceWith(data);
@@ -326,6 +337,14 @@
         <div class="col-md-10">
             @Html.EditorFor(model => model.StPatronymicInGen, new { htmlAttributes = new { @class = "form-control", id = "patronymicStudent" } })
             @Html.ValidationMessageFor(model => model.StPatronymicInGen, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ShortNameStudentInDat, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ShortNameStudentInDat, new { htmlAttributes = new { @class = "form-control", id = "shortNameStudentInDat" } })
+            @Html.ValidationMessageFor(model => model.ShortNameStudentInDat, "", new { @class = "text-danger" })
         </div>
     </div>
 

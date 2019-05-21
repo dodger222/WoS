@@ -104,6 +104,22 @@ namespace WorkplaceOfSecretary.Controllers
             return PartialView(student);
         }
 
+        // Получение фамилии и инициалов студента в дательном падеже по id студента
+        public ActionResult GetShortNameStudentInDat(int? id)
+        {
+            StudentInDative studentInDative = new StudentInDative();
+
+            if (id != null)
+            {
+                Student student = db.Students.Where(s => s.ID == id).FirstOrDefault();
+
+                studentInDative.ID = student.ID;
+                studentInDative.ShortNameInDat = student.LastName + " " + student.FirstName.ToUpper()[0] + "." + student.Patronymic.ToUpper()[0] + ".";
+            }
+
+            return PartialView(studentInDative);
+        }
+
         // Получение номера и наименования специальности по id группы
         public ActionResult GetSpecialty(int? id)
         {
