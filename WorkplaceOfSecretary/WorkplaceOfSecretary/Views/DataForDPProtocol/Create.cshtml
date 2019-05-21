@@ -118,6 +118,17 @@
                 })
             });
 
+            $('body').on('change', '#seb', function () {
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetFullNameSecretary")/' + id,
+                    success: function (data) {
+                        $('#fullNameSecretary').replaceWith(data);
+                    }
+                })
+            });
+
             $(function () {
 
                 $('#group').change(function()
@@ -187,6 +198,18 @@
             @Html.ValidationMessageFor(model => model.ShortNameChairpersonOne, "", new { @class = "text-danger" })
             @Html.EditorFor(model => model.ShortNameChairpersonTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameChairpersonTwo" } })
             @Html.ValidationMessageFor(model => model.ShortNameChairpersonTwo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("ФИО секретаря", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FullNameSecretary, new { htmlAttributes = new { @class = "form-control", id = "fullNameSecretary" } })
+            @Html.ValidationMessageFor(model => model.FullNameSecretary, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.ShortNameSecretaryOne, new { htmlAttributes = new { @class = "form-control", id = "shortNameSecretaryOne" } })
+            @Html.ValidationMessageFor(model => model.ShortNameSecretaryOne, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.ShortNameSecretaryTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameSecretaryTwo" } })
+            @Html.ValidationMessageFor(model => model.ShortNameSecretaryTwo, "", new { @class = "text-danger" })
         </div>
     </div>
 

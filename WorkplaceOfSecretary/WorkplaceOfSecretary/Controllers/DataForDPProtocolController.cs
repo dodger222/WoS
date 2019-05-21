@@ -182,5 +182,30 @@ namespace WorkplaceOfSecretary.Controllers
             return PartialView(chairperson);
         }
 
+        // Получение полного имени секретаря комиссии по id ГЭКа
+        public ActionResult GetFullNameSecretary(int? id)
+        {
+            vEmployee secretary = new vEmployee();
+
+            if (id != null)
+            {
+                Committee committee = new Committee();
+                committee = db.Committees.Where(c => c.SebID == id).FirstOrDefault();
+
+                if (committee != null)
+                {
+                    Employee employee = new Employee();
+                    employee = db.Employees.Where(e => e.ID == committee.SecretaryID).FirstOrDefault();
+
+                    secretary.ID = employee.ID;
+                    secretary.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
+                    secretary.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
+                    secretary.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                }
+            }
+
+            return PartialView(secretary);
+        }
+
     }
 }
