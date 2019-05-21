@@ -129,6 +129,28 @@
                 })
             });
 
+            $('body').on('change', '#seb', function () {
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetShortNameSecretaryOne")/' + id,
+                    success: function (data) {
+                        $('#shortNameSecretaryOne').replaceWith(data);
+                    }
+                })
+            });
+
+            $('body').on('change', '#seb', function () {
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetShortNameSecretaryTwo")/' + id,
+                    success: function (data) {
+                        $('#shortNameSecretaryTwo').replaceWith(data);
+                    }
+                })
+            });
+
             $(function () {
 
                 $('#group').change(function()
