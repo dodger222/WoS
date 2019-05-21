@@ -107,8 +107,8 @@ namespace WorkplaceOfSecretary.Controllers
             return PartialView(vSpecialty);
         }
 
-        // Получение председателя комиссии по id ГЭКа
-        public ActionResult GetChairperson(int? id)
+        // Получение полного имени председателя комиссии по id ГЭКа
+        public ActionResult GetFullNameChairperson(int? id)
         {
             vEmployee chairperson = new vEmployee();
 
@@ -117,13 +117,66 @@ namespace WorkplaceOfSecretary.Controllers
                 Committee committee = new Committee();
                 committee = db.Committees.Where(c => c.SebID == id).FirstOrDefault();
 
-                Employee employee = new Employee();
-                employee = db.Employees.Where(e => e.ID == committee.ChairpersonID).FirstOrDefault();
+                if (committee != null)
+                {
+                    Employee employee = new Employee();
+                    employee = db.Employees.Where(e => e.ID == committee.ChairpersonID).FirstOrDefault();
 
-                chairperson.ID = employee.ID;
-                chairperson.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                chairperson.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                chairperson.ShortFullNameOne = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." +employee.LastName;
+                    chairperson.ID = employee.ID;
+                    chairperson.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
+                    chairperson.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
+                    chairperson.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                }
+            }
+
+            return PartialView(chairperson);
+        }
+
+        // Получение фамилии и инициалов председателя комиссии по id ГЭКа
+        public ActionResult GetShortNameChairpersonOne(int? id)
+        {
+            vEmployee chairperson = new vEmployee();
+
+            if (id != null)
+            {
+                Committee committee = new Committee();
+                committee = db.Committees.Where(c => c.SebID == id).FirstOrDefault();
+
+                if (committee != null)
+                {
+                    Employee employee = new Employee();
+                    employee = db.Employees.Where(e => e.ID == committee.ChairpersonID).FirstOrDefault();
+
+                    chairperson.ID = employee.ID;
+                    chairperson.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
+                    chairperson.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
+                    chairperson.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                }
+            }
+
+            return PartialView(chairperson);
+        }
+
+        // Получение инициалов и фамилии председателя комиссии по id ГЭКа
+        public ActionResult GetShortNameChairpersonTwo(int? id)
+        {
+            vEmployee chairperson = new vEmployee();
+
+            if (id != null)
+            {
+                Committee committee = new Committee();
+                committee = db.Committees.Where(c => c.SebID == id).FirstOrDefault();
+
+                if (committee != null)
+                {
+                    Employee employee = new Employee();
+                    employee = db.Employees.Where(e => e.ID == committee.ChairpersonID).FirstOrDefault();
+
+                    chairperson.ID = employee.ID;
+                    chairperson.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
+                    chairperson.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
+                    chairperson.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                }
             }
 
             return PartialView(chairperson);
