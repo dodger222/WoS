@@ -11,5 +11,7 @@ namespace WorkplaceOfSecretary.Models
         public string StFirstNameInGen { get; set; }
         public string StPatronymicInGen { get; set; }
         public string Specialty { get; set; }
+        public string Theme { get; set; }
+        public string FullNameChairPerson { get; set; }
     }
 }

@@ -85,6 +85,17 @@
                 })
             });
 
+            $('body').on('change', '#seb', function () {
+                var id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetChairperson")/' + id,
+                    success: function (data) {
+                        $('#fullNameChairperson').replaceWith(data);
+                    }
+                })
+            });
+
             $(function () {
 
                 $('#group').change(function()
@@ -131,8 +142,31 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.Theme, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Theme, new { htmlAttributes = new { @class = "form-control", id = "theme" } })
+            @Html.ValidationMessageFor(model => model.Theme, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Выберите ГЭК", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("SebID", null, htmlAttributes: new { @class = "form-control", id = "seb" })
+        </div>
+    </div>
+
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FullNameChairPerson, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FullNameChairPerson, new { htmlAttributes = new { @class = "form-control", id = "fullNameChairperson" } })
+            @Html.ValidationMessageFor(model => model.FullNameChairPerson, "", new { @class = "text-danger" })
         </div>
     </div>
 

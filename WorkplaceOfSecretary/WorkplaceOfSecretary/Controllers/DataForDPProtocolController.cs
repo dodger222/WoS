@@ -15,12 +15,16 @@ namespace WorkplaceOfSecretary.Controllers
         public ActionResult Create()
         {
             List<Group> groups = new List<Group>();
-
             groups.Add(null);
-
             groups.AddRange(db.Groups.ToList());
 
             ViewBag.GroupID = new SelectList(groups, "ID", "NumberOfGroup");
+
+            List<SEB> sebs = new List<SEB>();
+            sebs.Add(null);
+            sebs.AddRange(db.SEBs.ToList());
+
+            ViewBag.SebID = new SelectList(sebs, "ID", "NameOfSEB");
 
             return View();
         }
@@ -101,6 +105,28 @@ namespace WorkplaceOfSecretary.Controllers
             }
 
             return PartialView(vSpecialty);
+        }
+
+        // Получение председателя комиссии по id ГЭКа
+        public ActionResult GetChairperson(int? id)
+        {
+            vEmployee chairperson = new vEmployee();
+
+            if(id != null)
+            {
+                Committee committee = new Committee();
+                committee = db.Committees.Where(c => c.SebID == id).FirstOrDefault();
+
+                Employee employee = new Employee();
+                employee = db.Employees.Where(e => e.ID == committee.ChairpersonID).FirstOrDefault();
+
+                chairperson.ID = employee.ID;
+                chairperson.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
+                chairperson.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
+                chairperson.ShortFullNameOne = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." +employee.LastName;
+            }
+
+            return PartialView(chairperson);
         }
 
     }
