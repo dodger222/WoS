@@ -14,34 +14,18 @@ namespace WorkplaceOfSecretary.Controllers
         
         public ActionResult Create()
         {
-            Group group = db.Groups.OrderBy(g => g.ID).FirstOrDefault();
+            List<Group> groups = new List<Group>();
 
-            int selectedIndex = group.ID;
+            groups.Add(null);
+
+            groups.AddRange(db.Groups.ToList());
 
             ViewBag.GroupID = new SelectList(db.Groups, "ID", "NumberOfGroup");
-
-            List<FullNameStudent> fullNameStudents = new List<FullNameStudent>();
-
-            fullNameStudents.Add(null);
-
-            foreach (var item in db.Students.Where(s => s.GroupID == selectedIndex))
-            {
-                FullNameStudent fullNameStudent = new FullNameStudent();
-
-                fullNameStudent.ID = item.ID;
-                fullNameStudent.LastName = item.LastName;
-                fullNameStudent.FirstName = item.FirstName;
-                fullNameStudent.Patronymic = item.Patronymic;
-                fullNameStudent.FullName = item.LastName + " " + item.FirstName + " " + item.Patronymic;
-
-                fullNameStudents.Add(fullNameStudent);
-            }
-
-            ViewBag.StudentID = new SelectList(fullNameStudents, "ID", "FullName");
 
             return View();
         }
 
+        // Получение списка студентов по id группы
         public ActionResult GetStudents(int id)
         {
             List<FullNameStudent> fullNameStudents  = new List<FullNameStudent>();
@@ -62,6 +46,7 @@ namespace WorkplaceOfSecretary.Controllers
             return PartialView(fullNameStudents);
         }
 
+        // Получение фамилии студента по id студента
         public ActionResult GetLastNameStudent(int? id)
         {
             Student student = new Student();
@@ -74,6 +59,7 @@ namespace WorkplaceOfSecretary.Controllers
             return PartialView(student);
         }
 
+        // Получение имени студента по id студента
         public ActionResult GetFirstNameStudent(int? id)
         {
             Student student = new Student();
@@ -86,6 +72,7 @@ namespace WorkplaceOfSecretary.Controllers
             return PartialView(student);
         }
 
+        // Получение отчества студента по id студента
         public ActionResult GetPatronymicStudent(int? id)
         {
             Student student = new Student();

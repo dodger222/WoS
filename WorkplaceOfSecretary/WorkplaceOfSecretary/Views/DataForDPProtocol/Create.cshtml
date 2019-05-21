@@ -24,7 +24,9 @@
     <div class="form-group">
         @Html.Label("Выберите Студента", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("StudentID", null, htmlAttributes: new { @class = "form-control", id = "student" })
+            <select id="student" name="Student" class="form-control">
+                <option value=""></option>
+            </select>
         </div>
     </div>
 
