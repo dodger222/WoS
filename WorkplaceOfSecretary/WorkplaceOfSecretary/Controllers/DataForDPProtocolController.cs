@@ -56,6 +56,21 @@ namespace WorkplaceOfSecretary.Controllers
                 doc.Bookmarks["FIO"].Range.Text = dataForDPProtocol.StLastNameInGen + " " + dataForDPProtocol.StFirstNameInGen + " " + dataForDPProtocol.StPatronymicInGen;
                 doc.Bookmarks["Specialty"].Range.Text = dataForDPProtocol.Specialty;
                 doc.Bookmarks["Theme"].Range.Text = dataForDPProtocol.Theme;
+                doc.Bookmarks["ShortNameChairpersonOne"].Range.Text = dataForDPProtocol.ShortNameChairpersonOne;
+                doc.Bookmarks["ShortNameSecretaryOne"].Range.Text = dataForDPProtocol.ShortNameSecretaryOne;
+                doc.Bookmarks["ShortNameMemberOneOne"].Range.Text = dataForDPProtocol.ShortNameMemberOneOne;
+                doc.Bookmarks["ShortNameMemberTwoOne"].Range.Text = dataForDPProtocol.ShortNameMemberTwoOne;
+                doc.Bookmarks["ShortNameMemberThreeOne"].Range.Text = dataForDPProtocol.ShortNameMemberThreeOne;
+                doc.Bookmarks["ShortNameLeaderInGen"].Range.Text = dataForDPProtocol.ShortNameLeaderInGen;
+                doc.Bookmarks["ShortNameLeaderInGen2"].Range.Text = dataForDPProtocol.ShortNameLeaderInGen;
+                doc.Bookmarks["Consultants"].Range.Text = dataForDPProtocol.Consultants;
+                doc.Bookmarks["ShortNameStudentInDat1"].Range.Text = dataForDPProtocol.ShortNameStudentInDat;
+                doc.Bookmarks["ShortNameStudentInDat2"].Range.Text = dataForDPProtocol.ShortNameStudentInDat;
+                doc.Bookmarks["ShortNameChairpersonTwo"].Range.Text = dataForDPProtocol.ShortNameChairpersonTwo;
+                doc.Bookmarks["ShortNameSecretaryTwo"].Range.Text = dataForDPProtocol.ShortNameSecretaryTwo;
+                doc.Bookmarks["ShortNameMemberOneTwo"].Range.Text = dataForDPProtocol.ShortNameMemberOneTwo;
+                doc.Bookmarks["ShortNameMemberTwoTwo"].Range.Text = dataForDPProtocol.ShortNameMemberTwoTwo;
+                doc.Bookmarks["ShortNameMemberThreeTwo"].Range.Text = dataForDPProtocol.ShortNameMemberThreeTwo;
                 doc.SaveAs(FileName: @"F:\NewProtocolQQQ.docx");
                 try
                 {
