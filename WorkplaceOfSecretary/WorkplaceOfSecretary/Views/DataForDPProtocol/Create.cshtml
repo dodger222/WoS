@@ -10,433 +10,433 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>Student</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.Label("Выберите группу", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("GroupID", null, htmlAttributes: new { @class = "form-control", id = "group" })
+    <div class="form-horizontal">
+        <h4>Student</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Выберите группу", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("GroupID", null, htmlAttributes: new { @class = "form-control", id = "group" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Specialty, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Specialty, new { htmlAttributes = new { @class = "form-control", id = "specialty" } })
-            @Html.ValidationMessageFor(model => model.Specialty, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Specialty, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Specialty, new { htmlAttributes = new { @class = "form-control", id = "specialty" } })
+                @Html.ValidationMessageFor(model => model.Specialty, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Consultants, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Consultants, new { htmlAttributes = new { @class = "form-control", id = "consultants" } })
-            @Html.ValidationMessageFor(model => model.Consultants, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Consultants, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Consultants, new { htmlAttributes = new { @class = "form-control", id = "consultants" } })
+                @Html.ValidationMessageFor(model => model.Consultants, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.Label("Выберите Студента", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <select id="student" name="Student" class="form-control">
-                <option value=""></option>
-            </select>
+        <div class="form-group">
+            @Html.Label("Выберите Студента", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="student" name="Student" class="form-control">
+                    <option value=""></option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    @section scripts{
-        <script>
+        @section scripts{
+            <script>
 
-            $('body').on('change', '#student', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetShortNameStudentInDat")/' + id,
-                    success: function (data) {
-                        $('#shortNameStudentInDat').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#student', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetLastNameStudent")/' + id,
-                    success: function (data) {
-                        $('#lastNameStudent').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#student', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetFirstNameStudent")/' + id,
-                    success: function (data) {
-                        $('#firstNameStudent').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#student', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetPatronymicStudent")/' + id,
-                    success: function (data) {
-                        $('#patronymicStudent').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#group', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetSpecialty")/' + id,
-                    success: function (data) {
-                        $('#specialty').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetFullNameChairperson")/' + id,
-                    success: function (data) {
-                        $('#fullNameChairperson').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetShortNameChairpersonOne")/' + id,
-                    success: function (data) {
-                        $('#shortNameChairpersonOne').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetShortNameChairpersonTwo")/' + id,
-                    success: function (data) {
-                        $('#shortNameChairpersonTwo').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetFullNameSecretary")/' + id,
-                    success: function (data) {
-                        $('#fullNameSecretary').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetShortNameSecretaryOne")/' + id,
-                    success: function (data) {
-                        $('#shortNameSecretaryOne').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetShortNameSecretaryTwo")/' + id,
-                    success: function (data) {
-                        $('#shortNameSecretaryTwo').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetFullNameMemberOne")/' + id,
-                    success: function (data) {
-                        $('#fullNameMemberOne').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetShortNameMemberOneOne")/' + id,
-                    success: function (data) {
-                        $('#shortNameMemberOneOne').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetShortNameMemberOneTwo")/' + id,
-                    success: function (data) {
-                        $('#shortNameMemberOneTwo').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetFullNameMemberTwo")/' + id,
-                    success: function (data) {
-                        $('#fullNameMemberTwo').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetShortNameMemberTwoOne")/' + id,
-                    success: function (data) {
-                        $('#shortNameMemberTwoOne').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetShortNameMemberTwoTwo")/' + id,
-                    success: function (data) {
-                        $('#shortNameMemberTwoTwo').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetFullNameMemberThree")/' + id,
-                    success: function (data) {
-                        $('#fullNameMemberThree').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetShortNameMemberThreeOne")/' + id,
-                    success: function (data) {
-                        $('#shortNameMemberThreeOne').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#seb', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetShortNameMemberThreeTwo")/' + id,
-                    success: function (data) {
-                        $('#shortNameMemberThreeTwo').replaceWith(data);
-                    }
-                })
-            });
-
-            $('body').on('change', '#leaderFullName', function () {
-                var id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '@Url.Action("GetShortNameLeaderInGen")/' + id,
-                    success: function (data) {
-                        $('#shortNameLeaderInGen').replaceWith(data);
-                    }
-                })
-            });
-
-            $('#group').change(function()
-                {
-                    // получаем выбранный id
+                $('body').on('change', '#student', function () {
                     var id = $(this).val();
                     $.ajax({
                         type: 'GET',
-                        url: '@Url.Action("GetConsultants")/' + id,
+                        url: '@Url.Action("GetShortNameStudentInDat")/' + id,
                         success: function (data) {
-
-                            // заменяем содержимое присланным частичным представлением
-                            $('#consultants').replaceWith(data);
+                            $('#shortNameStudentInDat').replaceWith(data);
                         }
-                    });
+                    })
                 });
 
-            $(function () {
+                $('body').on('change', '#student', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetLastNameStudent")/' + id,
+                        success: function (data) {
+                            $('#lastNameStudent').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#student', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetFirstNameStudent")/' + id,
+                        success: function (data) {
+                            $('#firstNameStudent').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#student', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetPatronymicStudent")/' + id,
+                        success: function (data) {
+                            $('#patronymicStudent').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#group', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetSpecialty")/' + id,
+                        success: function (data) {
+                            $('#specialty').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetFullNameChairperson")/' + id,
+                        success: function (data) {
+                            $('#fullNameChairperson').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetShortNameChairpersonOne")/' + id,
+                        success: function (data) {
+                            $('#shortNameChairpersonOne').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetShortNameChairpersonTwo")/' + id,
+                        success: function (data) {
+                            $('#shortNameChairpersonTwo').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetFullNameSecretary")/' + id,
+                        success: function (data) {
+                            $('#fullNameSecretary').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetShortNameSecretaryOne")/' + id,
+                        success: function (data) {
+                            $('#shortNameSecretaryOne').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetShortNameSecretaryTwo")/' + id,
+                        success: function (data) {
+                            $('#shortNameSecretaryTwo').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetFullNameMemberOne")/' + id,
+                        success: function (data) {
+                            $('#fullNameMemberOne').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetShortNameMemberOneOne")/' + id,
+                        success: function (data) {
+                            $('#shortNameMemberOneOne').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetShortNameMemberOneTwo")/' + id,
+                        success: function (data) {
+                            $('#shortNameMemberOneTwo').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetFullNameMemberTwo")/' + id,
+                        success: function (data) {
+                            $('#fullNameMemberTwo').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetShortNameMemberTwoOne")/' + id,
+                        success: function (data) {
+                            $('#shortNameMemberTwoOne').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetShortNameMemberTwoTwo")/' + id,
+                        success: function (data) {
+                            $('#shortNameMemberTwoTwo').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetFullNameMemberThree")/' + id,
+                        success: function (data) {
+                            $('#fullNameMemberThree').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetShortNameMemberThreeOne")/' + id,
+                        success: function (data) {
+                            $('#shortNameMemberThreeOne').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#seb', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetShortNameMemberThreeTwo")/' + id,
+                        success: function (data) {
+                            $('#shortNameMemberThreeTwo').replaceWith(data);
+                        }
+                    })
+                });
+
+                $('body').on('change', '#leaderFullName', function () {
+                    var id = $(this).val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetShortNameLeaderInGen")/' + id,
+                        success: function (data) {
+                            $('#shortNameLeaderInGen').replaceWith(data);
+                        }
+                    })
+                });
 
                 $('#group').change(function()
-                {
-                    // получаем выбранный id
-                    var id = $(this).val();
-                    $.ajax({
-                        type: 'GET',
-                        url: '@Url.Action("GetStudents")/' + id,
-                        success: function (data) {
+                    {
+                        // получаем выбранный id
+                        var id = $(this).val();
+                        $.ajax({
+                            type: 'GET',
+                            url: '@Url.Action("GetConsultants")/' + id,
+                            success: function (data) {
 
-                            // заменяем содержимое присланным частичным представлением
-                            $('#student').replaceWith(data);
-                        }
+                                // заменяем содержимое присланным частичным представлением
+                                $('#consultants').replaceWith(data);
+                            }
+                        });
                     });
-                });
 
-            })
-        </script>
-    }
+                $(function () {
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.StLastNameInGen, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.StLastNameInGen, new { htmlAttributes = new { @class = "form-control", id = "lastNameStudent" } })
-            @Html.ValidationMessageFor(model => model.StLastNameInGen, "", new { @class = "text-danger" })
+                    $('#group').change(function()
+                    {
+                        // получаем выбранный id
+                        var id = $(this).val();
+                        $.ajax({
+                            type: 'GET',
+                            url: '@Url.Action("GetStudents")/' + id,
+                            success: function (data) {
+
+                                // заменяем содержимое присланным частичным представлением
+                                $('#student').replaceWith(data);
+                            }
+                        });
+                    });
+
+                })
+            </script>
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StLastNameInGen, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StLastNameInGen, new { htmlAttributes = new { @class = "form-control", id = "lastNameStudent" } })
+                @Html.ValidationMessageFor(model => model.StLastNameInGen, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.StFirstNameInGen, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.StFirstNameInGen, new { htmlAttributes = new { @class = "form-control", id = "firstNameStudent" } })
-            @Html.ValidationMessageFor(model => model.StFirstNameInGen, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.StFirstNameInGen, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StFirstNameInGen, new { htmlAttributes = new { @class = "form-control", id = "firstNameStudent" } })
+                @Html.ValidationMessageFor(model => model.StFirstNameInGen, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.StPatronymicInGen, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.StPatronymicInGen, new { htmlAttributes = new { @class = "form-control", id = "patronymicStudent" } })
-            @Html.ValidationMessageFor(model => model.StPatronymicInGen, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.StPatronymicInGen, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StPatronymicInGen, new { htmlAttributes = new { @class = "form-control", id = "patronymicStudent" } })
+                @Html.ValidationMessageFor(model => model.StPatronymicInGen, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ShortNameStudentInDat, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ShortNameStudentInDat, new { htmlAttributes = new { @class = "form-control", id = "shortNameStudentInDat" } })
-            @Html.ValidationMessageFor(model => model.ShortNameStudentInDat, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShortNameStudentInDat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ShortNameStudentInDat, new { htmlAttributes = new { @class = "form-control", id = "shortNameStudentInDat" } })
+                @Html.ValidationMessageFor(model => model.ShortNameStudentInDat, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Theme, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Theme, new { htmlAttributes = new { @class = "form-control", id = "theme" } })
-            @Html.ValidationMessageFor(model => model.Theme, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Theme, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Theme, new { htmlAttributes = new { @class = "form-control", id = "theme" } })
+                @Html.ValidationMessageFor(model => model.Theme, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.Label("Выберите ГЭК", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("SebID", null, htmlAttributes: new { @class = "form-control", id = "seb" })
+        <div class="form-group">
+            @Html.Label("Выберите ГЭК", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SebID", null, htmlAttributes: new { @class = "form-control", id = "seb" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.Label("ФИО председателя", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.FullNameChairperson, new { htmlAttributes = new { @class = "form-control", id = "fullNameChairperson" } })
-            @Html.ValidationMessageFor(model => model.FullNameChairperson, "", new { @class = "text-danger" })
-            @Html.EditorFor(model => model.ShortNameChairpersonOne, new { htmlAttributes = new { @class = "form-control", id = "shortNameChairpersonOne" } })
-            @Html.ValidationMessageFor(model => model.ShortNameChairpersonOne, "", new { @class = "text-danger" })
-            @Html.EditorFor(model => model.ShortNameChairpersonTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameChairpersonTwo" } })
-            @Html.ValidationMessageFor(model => model.ShortNameChairpersonTwo, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("ФИО председателя", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FullNameChairperson, new { htmlAttributes = new { @class = "form-control", id = "fullNameChairperson" } })
+                @Html.ValidationMessageFor(model => model.FullNameChairperson, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ShortNameChairpersonOne, new { htmlAttributes = new { @class = "form-control", id = "shortNameChairpersonOne" } })
+                @Html.ValidationMessageFor(model => model.ShortNameChairpersonOne, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ShortNameChairpersonTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameChairpersonTwo" } })
+                @Html.ValidationMessageFor(model => model.ShortNameChairpersonTwo, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.Label("ФИО секретаря", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.FullNameSecretary, new { htmlAttributes = new { @class = "form-control", id = "fullNameSecretary" } })
-            @Html.ValidationMessageFor(model => model.FullNameSecretary, "", new { @class = "text-danger" })
-            @Html.EditorFor(model => model.ShortNameSecretaryOne, new { htmlAttributes = new { @class = "form-control", id = "shortNameSecretaryOne" } })
-            @Html.ValidationMessageFor(model => model.ShortNameSecretaryOne, "", new { @class = "text-danger" })
-            @Html.EditorFor(model => model.ShortNameSecretaryTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameSecretaryTwo" } })
-            @Html.ValidationMessageFor(model => model.ShortNameSecretaryTwo, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("ФИО секретаря", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FullNameSecretary, new { htmlAttributes = new { @class = "form-control", id = "fullNameSecretary" } })
+                @Html.ValidationMessageFor(model => model.FullNameSecretary, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ShortNameSecretaryOne, new { htmlAttributes = new { @class = "form-control", id = "shortNameSecretaryOne" } })
+                @Html.ValidationMessageFor(model => model.ShortNameSecretaryOne, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ShortNameSecretaryTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameSecretaryTwo" } })
+                @Html.ValidationMessageFor(model => model.ShortNameSecretaryTwo, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.Label("ФИО первого члена комиссии", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.FullNameMemberOne, new { htmlAttributes = new { @class = "form-control", id = "fullNameMemberOne" } })
-            @Html.ValidationMessageFor(model => model.FullNameMemberOne, "", new { @class = "text-danger" })
-            @Html.EditorFor(model => model.ShortNameMemberOneOne, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberOneOne" } })
-            @Html.ValidationMessageFor(model => model.ShortNameMemberOneOne, "", new { @class = "text-danger" })
-            @Html.EditorFor(model => model.ShortNameMemberOneTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberOneTwo" } })
-            @Html.ValidationMessageFor(model => model.ShortNameMemberOneTwo, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("ФИО первого члена комиссии", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FullNameMemberOne, new { htmlAttributes = new { @class = "form-control", id = "fullNameMemberOne" } })
+                @Html.ValidationMessageFor(model => model.FullNameMemberOne, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ShortNameMemberOneOne, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberOneOne" } })
+                @Html.ValidationMessageFor(model => model.ShortNameMemberOneOne, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ShortNameMemberOneTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberOneTwo" } })
+                @Html.ValidationMessageFor(model => model.ShortNameMemberOneTwo, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.Label("ФИО второго члена комиссии", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.FullNameMemberTwo, new { htmlAttributes = new { @class = "form-control", id = "fullNameMemberTwo" } })
-            @Html.ValidationMessageFor(model => model.FullNameMemberTwo, "", new { @class = "text-danger" })
-            @Html.EditorFor(model => model.ShortNameMemberTwoOne, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberTwoOne" } })
-            @Html.ValidationMessageFor(model => model.ShortNameMemberTwoOne, "", new { @class = "text-danger" })
-            @Html.EditorFor(model => model.ShortNameMemberTwoTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberTwoTwo" } })
-            @Html.ValidationMessageFor(model => model.ShortNameMemberTwoTwo, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("ФИО второго члена комиссии", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FullNameMemberTwo, new { htmlAttributes = new { @class = "form-control", id = "fullNameMemberTwo" } })
+                @Html.ValidationMessageFor(model => model.FullNameMemberTwo, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ShortNameMemberTwoOne, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberTwoOne" } })
+                @Html.ValidationMessageFor(model => model.ShortNameMemberTwoOne, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ShortNameMemberTwoTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberTwoTwo" } })
+                @Html.ValidationMessageFor(model => model.ShortNameMemberTwoTwo, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.Label("ФИО третьего члена комиссии", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.FullNameMemberThree, new { htmlAttributes = new { @class = "form-control", id = "fullNameMemberThree" } })
-            @Html.ValidationMessageFor(model => model.FullNameMemberThree, "", new { @class = "text-danger" })
-            @Html.EditorFor(model => model.ShortNameMemberThreeOne, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberThreeOne" } })
-            @Html.ValidationMessageFor(model => model.ShortNameMemberThreeOne, "", new { @class = "text-danger" })
-            @Html.EditorFor(model => model.ShortNameMemberThreeTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberThreeTwo" } })
-            @Html.ValidationMessageFor(model => model.ShortNameMemberThreeTwo, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("ФИО третьего члена комиссии", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FullNameMemberThree, new { htmlAttributes = new { @class = "form-control", id = "fullNameMemberThree" } })
+                @Html.ValidationMessageFor(model => model.FullNameMemberThree, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ShortNameMemberThreeOne, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberThreeOne" } })
+                @Html.ValidationMessageFor(model => model.ShortNameMemberThreeOne, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ShortNameMemberThreeTwo, new { htmlAttributes = new { @class = "form-control", id = "shortNameMemberThreeTwo" } })
+                @Html.ValidationMessageFor(model => model.ShortNameMemberThreeTwo, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.Label("Выберите руководителя", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("LeaderID", null, htmlAttributes: new { @class = "form-control", id = "leaderFullName" })
-            @Html.EditorFor(model => model.ShortNameLeaderInGen, new { htmlAttributes = new { @class = "form-control", id = "shortNameLeaderInGen" } })
-            @Html.ValidationMessageFor(model => model.ShortNameLeaderInGen, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Выберите руководителя", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("LeaderID", null, htmlAttributes: new { @class = "form-control", id = "leaderFullName" })
+                @Html.EditorFor(model => model.ShortNameLeaderInGen, new { htmlAttributes = new { @class = "form-control", id = "shortNameLeaderInGen" } })
+                @Html.ValidationMessageFor(model => model.ShortNameLeaderInGen, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -44,6 +45,33 @@ namespace WorkplaceOfSecretary.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(DataForDPProtocol dataForDPProtocol)
+        {
+            if (ModelState.IsValid)
+            {
+                Application app = new Application();
+                Document doc = app.Documents.Add(@"F:\Protocol.docx");
+                doc.Bookmarks["FIO"].Range.Text = dataForDPProtocol.StLastNameInGen + " " + dataForDPProtocol.StFirstNameInGen + " " + dataForDPProtocol.StPatronymicInGen;
+                doc.Bookmarks["Specialty"].Range.Text = dataForDPProtocol.Specialty;
+                doc.Bookmarks["Theme"].Range.Text = dataForDPProtocol.Theme;
+                doc.SaveAs(FileName: @"F:\NewProtocolQQQ.docx");
+                try
+                {
+                    doc.Close();
+                    app.Quit();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+            
+            return View(dataForDPProtocol);
+        }
+
         // Получение списка студентов по id группы
         public ActionResult GetStudents(int id)
         {
@@ -68,62 +96,71 @@ namespace WorkplaceOfSecretary.Controllers
         // Получение фамилии студента по id студента
         public ActionResult GetLastNameStudent(int? id)
         {
-            Student student = new Student();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
+                Student student = new Student();
                 student = db.Students.Where(s => s.ID == id).FirstOrDefault();
+
+                dataForDPProtocol.StLastNameInGen = student.LastName;
             }
 
-            return PartialView(student);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение имени студента по id студента
         public ActionResult GetFirstNameStudent(int? id)
         {
-            Student student = new Student();
-
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
+            
             if (id != null)
             {
+                Student student = new Student();
                 student = db.Students.Where(s => s.ID == id).FirstOrDefault();
+
+                dataForDPProtocol.StFirstNameInGen = student.FirstName;
             }
 
-            return PartialView(student);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение отчества студента по id студента
         public ActionResult GetPatronymicStudent(int? id)
         {
-            Student student = new Student();
-
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
+            
             if (id != null)
             {
+                Student student = new Student();
                 student = db.Students.Where(s => s.ID == id).FirstOrDefault();
+
+                dataForDPProtocol.StPatronymicInGen = student.Patronymic;
             }
 
-            return PartialView(student);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение фамилии и инициалов студента в дательном падеже по id студента
         public ActionResult GetShortNameStudentInDat(int? id)
         {
-            StudentInDative studentInDative = new StudentInDative();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
                 Student student = db.Students.Where(s => s.ID == id).FirstOrDefault();
-
-                studentInDative.ID = student.ID;
-                studentInDative.ShortNameInDat = student.LastName + " " + student.FirstName.ToUpper()[0] + "." + student.Patronymic.ToUpper()[0] + ".";
+                
+                dataForDPProtocol.ShortNameStudentInDat = student.LastName + " " + student.FirstName.ToUpper()[0] + "." + student.Patronymic.ToUpper()[0] + ".";
             }
 
-            return PartialView(studentInDative);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение номера и наименования специальности по id группы
         public ActionResult GetSpecialty(int? id)
         {
-            vSpecialty vSpecialty = new vSpecialty();
+
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -131,19 +168,18 @@ namespace WorkplaceOfSecretary.Controllers
 
                 Specialty specialty = db.Specialties.Where(s => s.ID == group.SpecialtyID).FirstOrDefault();
 
-                vSpecialty.ID = specialty.ID;
-                vSpecialty.Specialty = specialty.NumberOfSpecialty + " " + specialty.NameOfSpecialty;
+                dataForDPProtocol.Specialty = specialty.NumberOfSpecialty + " «" + specialty.NameOfSpecialty + "»";
             }
 
-            return PartialView(vSpecialty);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение полного имени председателя комиссии по id ГЭКа
         public ActionResult GetFullNameChairperson(int? id)
         {
-            vEmployee chairperson = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
-            if(id != null)
+            if (id != null)
             {
                 Committee committee = new Committee();
                 committee = db.Committees.Where(c => c.SebID == id).FirstOrDefault();
@@ -153,20 +189,17 @@ namespace WorkplaceOfSecretary.Controllers
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.ChairpersonID).FirstOrDefault();
 
-                    chairperson.ID = employee.ID;
-                    chairperson.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    chairperson.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    chairperson.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    dataForDPProtocol.FullNameChairperson = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
                 }
             }
 
-            return PartialView(chairperson);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение фамилии и инициалов председателя комиссии по id ГЭКа
         public ActionResult GetShortNameChairpersonOne(int? id)
         {
-            vEmployee chairperson = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -178,20 +211,17 @@ namespace WorkplaceOfSecretary.Controllers
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.ChairpersonID).FirstOrDefault();
 
-                    chairperson.ID = employee.ID;
-                    chairperson.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    chairperson.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    chairperson.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    dataForDPProtocol.ShortNameChairpersonOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
                 }
             }
 
-            return PartialView(chairperson);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение инициалов и фамилии председателя комиссии по id ГЭКа
         public ActionResult GetShortNameChairpersonTwo(int? id)
         {
-            vEmployee chairperson = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -203,20 +233,17 @@ namespace WorkplaceOfSecretary.Controllers
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.ChairpersonID).FirstOrDefault();
 
-                    chairperson.ID = employee.ID;
-                    chairperson.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    chairperson.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    chairperson.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    dataForDPProtocol.ShortNameChairpersonTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
                 }
             }
 
-            return PartialView(chairperson);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение полного имени секретаря комиссии по id ГЭКа
         public ActionResult GetFullNameSecretary(int? id)
         {
-            vEmployee secretary = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -227,21 +254,18 @@ namespace WorkplaceOfSecretary.Controllers
                 {
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.SecretaryID).FirstOrDefault();
-
-                    secretary.ID = employee.ID;
-                    secretary.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    secretary.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    secretary.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    
+                    dataForDPProtocol.FullNameSecretary = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
                 }
             }
 
-            return PartialView(secretary);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение фамилии и инициалов секретаря комиссии по id ГЭКа
         public ActionResult GetShortNameSecretaryOne(int? id)
         {
-            vEmployee secretary = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -253,20 +277,17 @@ namespace WorkplaceOfSecretary.Controllers
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.SecretaryID).FirstOrDefault();
 
-                    secretary.ID = employee.ID;
-                    secretary.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    secretary.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    secretary.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    dataForDPProtocol.ShortNameSecretaryOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
                 }
             }
 
-            return PartialView(secretary);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение инициалов и фамилии секретаря комиссии по id ГЭКа
         public ActionResult GetShortNameSecretaryTwo(int? id)
         {
-            vEmployee secretary = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -278,20 +299,17 @@ namespace WorkplaceOfSecretary.Controllers
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.SecretaryID).FirstOrDefault();
 
-                    secretary.ID = employee.ID;
-                    secretary.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    secretary.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    secretary.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    dataForDPProtocol.ShortNameSecretaryTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
                 }
             }
 
-            return PartialView(secretary);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение полного имени первого члена комиссии по id ГЭКа
         public ActionResult GetFullNameMemberOne(int? id)
         {
-            vEmployee memberOne = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -303,20 +321,17 @@ namespace WorkplaceOfSecretary.Controllers
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.MemberOneID).FirstOrDefault();
 
-                    memberOne.ID = employee.ID;
-                    memberOne.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    memberOne.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    memberOne.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    dataForDPProtocol.FullNameMemberOne = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
                 }
             }
 
-            return PartialView(memberOne);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение фамилии и инициалов первого члена комиссии по id ГЭКа
         public ActionResult GetShortNameMemberOneOne(int? id)
         {
-            vEmployee memberOne = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -328,20 +343,17 @@ namespace WorkplaceOfSecretary.Controllers
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.MemberOneID).FirstOrDefault();
 
-                    memberOne.ID = employee.ID;
-                    memberOne.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    memberOne.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    memberOne.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    dataForDPProtocol.ShortNameMemberOneOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
                 }
             }
 
-            return PartialView(memberOne);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение инициалов и фамилии первого члена комиссии по id ГЭКа
         public ActionResult GetShortNameMemberOneTwo(int? id)
         {
-            vEmployee memberOne = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -353,20 +365,17 @@ namespace WorkplaceOfSecretary.Controllers
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.MemberOneID).FirstOrDefault();
 
-                    memberOne.ID = employee.ID;
-                    memberOne.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    memberOne.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    memberOne.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    dataForDPProtocol.ShortNameMemberOneTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
                 }
             }
 
-            return PartialView(memberOne);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение полного имени второго члена комиссии по id ГЭКа
         public ActionResult GetFullNameMemberTwo(int? id)
         {
-            vEmployee memberTwo = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -378,20 +387,17 @@ namespace WorkplaceOfSecretary.Controllers
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.MemberTwoID).FirstOrDefault();
 
-                    memberTwo.ID = employee.ID;
-                    memberTwo.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    memberTwo.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    memberTwo.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    dataForDPProtocol.FullNameMemberTwo = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
                 }
             }
 
-            return PartialView(memberTwo);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение фамилии и инициалов второго члена комиссии по id ГЭКа
         public ActionResult GetShortNameMemberTwoOne(int? id)
         {
-            vEmployee memberTwo = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -402,21 +408,18 @@ namespace WorkplaceOfSecretary.Controllers
                 {
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.MemberTwoID).FirstOrDefault();
-
-                    memberTwo.ID = employee.ID;
-                    memberTwo.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    memberTwo.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    memberTwo.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    
+                    dataForDPProtocol.ShortNameMemberTwoOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
                 }
             }
 
-            return PartialView(memberTwo);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение инициалов и фамилии второго члена комиссии по id ГЭКа
         public ActionResult GetShortNameMemberTwoTwo(int? id)
         {
-            vEmployee memberTwo = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -428,20 +431,17 @@ namespace WorkplaceOfSecretary.Controllers
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.MemberTwoID).FirstOrDefault();
 
-                    memberTwo.ID = employee.ID;
-                    memberTwo.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    memberTwo.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    memberTwo.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    dataForDPProtocol.ShortNameMemberTwoTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
                 }
             }
 
-            return PartialView(memberTwo);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение полного имени третьего члена комиссии по id ГЭКа
         public ActionResult GetFullNameMemberThree(int? id)
         {
-            vEmployee memberThree = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -453,20 +453,17 @@ namespace WorkplaceOfSecretary.Controllers
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.MemberThreeID).FirstOrDefault();
 
-                    memberThree.ID = employee.ID;
-                    memberThree.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    memberThree.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    memberThree.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    dataForDPProtocol.FullNameMemberThree = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
                 }
             }
 
-            return PartialView(memberThree);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение фамилии и инициалов третьего члена комиссии по id ГЭКа
         public ActionResult GetShortNameMemberThreeOne(int? id)
         {
-            vEmployee memberThree = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -478,20 +475,17 @@ namespace WorkplaceOfSecretary.Controllers
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.MemberThreeID).FirstOrDefault();
 
-                    memberThree.ID = employee.ID;
-                    memberThree.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    memberThree.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    memberThree.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    dataForDPProtocol.ShortNameMemberThreeOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
                 }
             }
 
-            return PartialView(memberThree);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение инициалов и фамилии третьего члена комиссии по id ГЭКа
         public ActionResult GetShortNameMemberThreeTwo(int? id)
         {
-            vEmployee memberThree = new vEmployee();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
@@ -503,44 +497,42 @@ namespace WorkplaceOfSecretary.Controllers
                     Employee employee = new Employee();
                     employee = db.Employees.Where(e => e.ID == committee.MemberThreeID).FirstOrDefault();
 
-                    memberThree.ID = employee.ID;
-                    memberThree.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                    memberThree.ShortFullNameOne = employee.LastName + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
-                    memberThree.ShortFullNameTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
+                    dataForDPProtocol.ShortNameMemberThreeTwo = employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + "." + employee.LastName;
                 }
             }
 
-            return PartialView(memberThree);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение фамилии и инициалов руководителя в родительном падеже по id работника
         public ActionResult GetShortNameLeaderInGen(int? id)
         {
-            Leader leader = new Leader();
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
 
             if (id != null)
             {
                 Employee employee = db.Employees.Where(e => e.ID == id).FirstOrDefault();
 
-                leader.ID = employee.ID;
-                leader.FullName = employee.LastName + " " + employee.FirstName + " " + employee.Patronymic;
-                leader.ShortNameInGen = employee.LastNameInGenitive + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
+                dataForDPProtocol.ShortNameLeaderInGen = employee.LastNameInGenitive + " " + employee.FirstName.ToUpper()[0] + "." + employee.Patronymic.ToUpper()[0] + ".";
             }
 
-            return PartialView(leader);
+            return PartialView(dataForDPProtocol);
         }
 
         // Получение консультантов по id группы
         public ActionResult GetConsultants(int? id)
         {
-            Group group = new Group();
-
+            DataForDPProtocol dataForDPProtocol = new DataForDPProtocol();
+            
             if(id != null)
             {
+                Group group = new Group();
                 group = db.Groups.Where(g => g.ID == id).FirstOrDefault();
+
+                dataForDPProtocol.Consultants = group.ComissionMembers;
             }
 
-            return PartialView(group);
+            return PartialView(dataForDPProtocol);
         }
     }
 }
