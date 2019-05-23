@@ -4,42 +4,36 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Список преподавателей</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить преподавателя", "Create", "Employee", null, new { @class = "btn btn-success btn-radius" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Degree.NameOfDegree)
+            @Html.DisplayName("Фамилия")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Rank.NameOfRank)
+            @Html.DisplayName("Имя")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayName("Отчество")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayName("Фамилия в родительном падеже")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Patronymic)
+            @Html.DisplayName("Звание")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastNameInGenitive)
+            @Html.DisplayName("Степень")
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Degree.NameOfDegree)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rank.NameOfRank)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.LastName)
         </td>
@@ -53,9 +47,15 @@
             @Html.DisplayFor(modelItem => item.LastNameInGenitive)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.DisplayFor(modelItem => item.Rank.NameOfRank)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Degree.NameOfDegree)
+        </td>
+        <td>
+            @Html.ActionLink("Изменить", "Edit", "Employee", new { id = item.ID }, new { @class = "btn btn-default btn-radius" })
+            @Html.ActionLink("Подробнее", "Details", "Employee", new { id = item.ID }, new { @class = "btn btn-default btn-radius" })
+            @Html.ActionLink("Удалить", "Delete", new { id = item.ID }, new { @class = "btn btn-danger btn-radius" })
         </td>
     </tr>
 }
