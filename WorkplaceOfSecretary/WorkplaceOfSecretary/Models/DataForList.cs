@@ -8,7 +8,7 @@ namespace WorkplaceOfSecretary.Models
 {
     public class DataForList
     {
-        public string SEB { get; set; }
+        public int SebID { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
