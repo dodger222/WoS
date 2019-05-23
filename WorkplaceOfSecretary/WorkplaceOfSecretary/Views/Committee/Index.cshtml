@@ -4,30 +4,30 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Список комиссий</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить комиссию", "Create", "Committee", null, new { @class = "btn btn-success btn-radius" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Chairperson.LastName)
+            @Html.DisplayName("ГЭК")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MemberOne.LastName)
+            @Html.DisplayName("Председатель")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MemberThree.LastName)
+            @Html.DisplayName("Секретарь")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MemberTwo.LastName)
+            @Html.DisplayName("Член комисси")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Seb.NameOfSEB)
+            @Html.DisplayName("Член комисси")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Secretary.LastName)
+            @Html.DisplayName("Член комисси")
         </th>
         <th></th>
     </tr>
@@ -35,27 +35,37 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Chairperson.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MemberOne.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MemberThree.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MemberTwo.LastName)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Seb.NameOfSEB)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Secretary.LastName)
+            @Html.DisplayFor(modelItem => item.Chairperson.LastName)
+            @Html.DisplayFor(modelItem => item.Chairperson.FirstName)
+            @Html.DisplayFor(modelItem => item.Chairperson.Patronymic)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.DisplayFor(modelItem => item.Secretary.LastName)
+            @Html.DisplayFor(modelItem => item.Secretary.FirstName)
+            @Html.DisplayFor(modelItem => item.Secretary.Patronymic)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemberOne.LastName)
+            @Html.DisplayFor(modelItem => item.MemberOne.FirstName)
+            @Html.DisplayFor(modelItem => item.MemberOne.Patronymic)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemberTwo.LastName)
+            @Html.DisplayFor(modelItem => item.MemberTwo.FirstName)
+            @Html.DisplayFor(modelItem => item.MemberTwo.Patronymic)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MemberThree.LastName)
+            @Html.DisplayFor(modelItem => item.MemberThree.FirstName)
+            @Html.DisplayFor(modelItem => item.MemberThree.Patronymic)
+        </td>
+        <td>
+            @Html.ActionLink("Изменить", "Edit", "Committee", new { id = item.ID }, new { @class = "btn btn-default btn-radius" })
+            @Html.ActionLink("Подробнее", "Details", "Committee", new { id = item.ID }, new { @class = "btn btn-default btn-radius" })
+            @Html.ActionLink("Удалить", "Delete", "Committee", new { id = item.ID }, new { @class = "btn btn-danger btn-radius" })
         </td>
     </tr>
 }
