@@ -4,47 +4,14 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Удаление комиссии</h2>
 <p class="error">@ViewBag.ErrorMessage</p>
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Committee</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Chairperson.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Chairperson.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MemberOne.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MemberOne.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MemberThree.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MemberThree.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MemberTwo.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MemberTwo.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Seb.NameOfSEB)
+            @Html.DisplayName("ГЭК")
         </dt>
 
         <dd>
@@ -52,11 +19,53 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Secretary.LastName)
+            @Html.DisplayName("Председатель")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Chairperson.LastName)
+            @Html.DisplayFor(model => model.Chairperson.FirstName)
+            @Html.DisplayFor(model => model.Chairperson.Patronymic)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Секретарь")
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Secretary.LastName)
+            @Html.DisplayFor(model => model.Secretary.FirstName)
+            @Html.DisplayFor(model => model.Secretary.Patronymic)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Член комисси")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberOne.LastName)
+            @Html.DisplayFor(model => model.MemberOne.FirstName)
+            @Html.DisplayFor(model => model.MemberOne.Patronymic)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Член комисси")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberTwo.LastName)
+            @Html.DisplayFor(model => model.MemberTwo.FirstName)
+            @Html.DisplayFor(model => model.MemberTwo.Patronymic)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Член комисси")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MemberThree.LastName)
+            @Html.DisplayFor(model => model.MemberThree.FirstName)
+            @Html.DisplayFor(model => model.MemberThree.Patronymic)
         </dd>
 
     </dl>
@@ -65,8 +74,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("К списку комиссий", "Index", "Committee", null, new { @class = "btn btn-default btn-radius" })
+            <input type="submit" value="Удалить" class="btn btn-danger btn-radius" />
         </div>
     }
 </div>
