@@ -29,6 +29,24 @@ namespace WorkplaceOfSecretary.Controllers
             return View();
         }
 
+        // Получение номера и наименования специальности по id группы
+        public ActionResult GetSpecialty(int? id)
+        {
+
+            DataForList dataForList = new DataForList();
+
+            if (id != null)
+            {
+                Group group = db.Groups.Where(g => g.ID == id).FirstOrDefault();
+
+                Specialty specialty = db.Specialties.Where(s => s.ID == group.SpecialtyID).FirstOrDefault();
+
+                dataForList.Specialty = specialty.NumberOfSpecialty + "- «" + specialty.NameOfSpecialty + "»";
+            }
+
+            return PartialView(dataForList);
+        }
+
         // Получить список студентов по id группы
         public ActionResult GetStudents(int? id)
         {

@@ -15,5 +15,6 @@ namespace WorkplaceOfSecretary.Models
         public DateTime Date { get; set; }
 
         public int GroupID { get; set; }
+        public string Specialty { get; set; }
     }
 }
