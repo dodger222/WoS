@@ -24,7 +24,7 @@ namespace WorkplaceOfSecretary.Controllers
             groups.Add(null);
             groups.AddRange(db.Groups.ToList());
 
-            ViewBag.GroupID = new SelectList(groups, "ID", "NumberOfGroup");
+            ViewBag.Groups = new SelectList(groups, "NumberOfGroup", "NumberOfGroup");
 
             return View();
         }
