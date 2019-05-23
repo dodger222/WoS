@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Редактирование комиссии</h2>
 
 
 @using (Html.BeginForm())
@@ -12,13 +12,12 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Committee</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SebID, "SebID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Выберите ГЭК", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("SebID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SebID, "", new { @class = "text-danger" })
@@ -26,7 +25,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ChairpersonID, "ChairpersonID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Выберите председателя", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("ChairpersonID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ChairpersonID, "", new { @class = "text-danger" })
@@ -34,7 +33,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SecretaryID, "SecretaryID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Выберите секретаря", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("SecretaryID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SecretaryID, "", new { @class = "text-danger" })
@@ -42,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MemberOneID, "MemberOneID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Выберите члена комиссии", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("MemberOneID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.MemberOneID, "", new { @class = "text-danger" })
@@ -50,7 +49,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MemberTwoID, "MemberTwoID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Выберите члена комиссии", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("MemberTwoID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.MemberTwoID, "", new { @class = "text-danger" })
@@ -58,7 +57,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MemberThreeID, "MemberThreeID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Выберите члена комиссии", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("MemberThreeID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.MemberThreeID, "", new { @class = "text-danger" })
@@ -66,16 +65,13 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="edit-btn-group">
+                @Html.ActionLink("К списку комиссий", "Index", "Committee", null, new { @class = "btn btn-default btn-radius" })
+                <input type="submit" value="Сохранить" class="btn btn-success btn-radius" />
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
