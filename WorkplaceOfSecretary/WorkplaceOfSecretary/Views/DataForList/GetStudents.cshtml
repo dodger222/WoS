@@ -1,0 +1,30 @@
+﻿@model WorkplaceOfSecretary.Models.Group
+
+<table class="table" id="tableStudents">
+    <tr>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th>Средний балл</th>
+    </tr>
+    @if (Model.Students != null)
+    {
+        foreach (var item in Model.Students)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patronymic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AverageScore)
+                </td>
+            </tr>
+        }
+    }
+</table>

@@ -24,9 +24,22 @@ namespace WorkplaceOfSecretary.Controllers
             groups.Add(null);
             groups.AddRange(db.Groups.ToList());
 
-            ViewBag.Groups = new SelectList(groups, "NumberOfGroup", "NumberOfGroup");
+            ViewBag.Groups = new SelectList(groups, "ID", "NumberOfGroup");
 
             return View();
+        }
+
+        // Получить список студентов по id группы
+        public ActionResult GetStudents(int? id)
+        {
+            Group group = new Group();
+
+            if(id != null)
+            {
+                group = db.Groups.Where(g => g.ID == id).FirstOrDefault();
+            }
+
+            return PartialView(group);
         }
     }
 }

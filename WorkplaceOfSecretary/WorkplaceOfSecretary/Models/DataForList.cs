@@ -14,8 +14,6 @@ namespace WorkplaceOfSecretary.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
-        public string Group { get; set; }
-
-        public List<Student> Students { get; set; }
+        public int GroupID { get; set; }
     }
 }
