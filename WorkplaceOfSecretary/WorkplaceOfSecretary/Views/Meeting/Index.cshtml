@@ -4,18 +4,18 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Список заседаний</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить заседание", "Create", "Meeting", null, new { @class = "btn btn-success btn-radius" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Seb.NameOfSEB)
+            @Html.DisplayName("ГЭК")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.DisplayName("Дата")
         </th>
         <th></th>
     </tr>
@@ -29,9 +29,9 @@
             @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Изменить", "Edit", "Meeting", new { id=item.ID }, new { @class = "btn btn-default btn-radius" })
+            @Html.ActionLink("Подробнее", "Details", "Meeting", new { id=item.ID }, new { @class = "btn btn-default btn-radius" })
+            @Html.ActionLink("Удалить", "Delete", "Meeting", new { id=item.ID }, new { @class = "btn btn-danger btn-radius" })
         </td>
     </tr>
 }
