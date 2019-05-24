@@ -4,28 +4,27 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Список ГЭК</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить ГЭК", "Create", "SEB", null, new { @class = "btn btn-success btn-radius" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NameOfSEB)
+            @Html.DisplayName("Название")
         </th>
         <th></th>
     </tr>
-
 @foreach (var item in Model) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.NameOfSEB)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Изменить", "Edit", "SEB", new { id=item.ID }, new { @class = "btn btn-default btn-radius" })
+            @Html.ActionLink("Подробнее", "Details", "SEB", new { id = item.ID }, new { @class = "btn btn-default btn-radius" })
+            @Html.ActionLink("Удалить", "Delete", "SEB", new { id = item.ID }, new { @class = "btn btn-danger btn-radius" })
         </td>
     </tr>
 }
