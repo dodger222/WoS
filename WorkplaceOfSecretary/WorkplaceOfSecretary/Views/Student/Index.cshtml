@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Список студентов</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить студента", "Create", "Student", null, new { @class = "btn btn-success btn-radius" })
 </p>
 <form method="get">
     <div class="form-inline">
@@ -20,22 +20,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Group.NumberOfGroup)
+            @Html.DisplayName("Номер группы")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayName("Фамилия")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayName("Имя")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Patronymic)
+            @Html.DisplayName("Отчество")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AverageScore)
+            @Html.DisplayName("Средний балл")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Foreigner)
+            @Html.DisplayName("Иностранец")
         </th>
         <th></th>
     </tr>
@@ -62,9 +62,9 @@
                 @Html.DisplayFor(modelItem => item.Foreigner)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("Изменить", "Edit", "Student", new { id = item.ID }, new { @class = "btn btn-default btn-radius" })
+                @Html.ActionLink("Подробнее", "Details", "Student", new { id = item.ID }, new { @class = "btn btn-default btn-radius" })
+                @Html.ActionLink("Удалить", "Delete", "Student", new { id = item.ID }, new { @class = "btn btn-danger btn-radius" })
             </td>
         </tr>
     }
