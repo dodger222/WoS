@@ -4,14 +4,13 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Информация о группе</h2>
 
 <div>
-    <h4>Group</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Specialty.NameOfSpecialty)
+            @Html.DisplayName("Специальность:")
         </dt>
 
         <dd>
@@ -19,7 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NumberOfGroup)
+            @Html.DisplayName("Номер группы:")
         </dt>
 
         <dd>
@@ -27,23 +26,23 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ComissionMembers)
+            @Html.DisplayName("Консультанты:")
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.ComissionMembers)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Students)
+            @Html.DisplayName("Студенты")
         </dt>
         <dd>
             <table class="table">
                 <tr>
-                    <th>Last Name</th>
-                    <th>First Name</th>
-                    <th>Patronymic</th>
-                    <th>Avg score</th>
-                    <th>Foreigner</th>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th>Средний балл</th>
+                    <th>Иностранец</th>
                 </tr>
                 @foreach (var item in Model.Students)
                 {
@@ -70,6 +69,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("К списку групп", "Index", "Group", null, new { @class = "btn btn-default btn-radius" })
+    @Html.ActionLink("Редактировать", "Edit", "Group", new { id = Model.ID }, new { @class = "btn btn-default btn-radius" })
 </p>
