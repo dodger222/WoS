@@ -4,21 +4,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Список групп</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить группу", "Create", "Group", null, new { @class = "btn btn-success btn-radius"})
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Specialty.NameOfSpecialty)
+            @Html.DisplayName("Номер группы")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NumberOfGroup)
+            @Html.DisplayName("Специальность")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ComissionMembers)
+            @Html.DisplayName("Консультанты")
         </th>
         <th></th>
     </tr>
@@ -26,18 +26,18 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Specialty.NameOfSpecialty)
+            @Html.DisplayFor(modelItem => item.NumberOfGroup)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NumberOfGroup)
+            @Html.DisplayFor(modelItem => item.Specialty.NameOfSpecialty)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ComissionMembers)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Изменить", "Edit", "Group", new { id = item.ID }, new { @class = "btn btn-default btn-radius" })
+            @Html.ActionLink("Подробнее", "Details", "Group", new { id = item.ID }, new { @class = "btn btn-default btn-radius" })
+            @Html.ActionLink("Удалить", "Delete", new { id = item.ID }, new { @class = "btn btn-danger btn-radius" })
         </td>
     </tr>
 }
