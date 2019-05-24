@@ -18,7 +18,7 @@ namespace WorkplaceOfSecretary.Models
         public decimal AverageScore { get; set; }
         public bool Foreigner { get; set; }
 
-        public Group Group { get; set; }
+        public virtual Group Group { get; set; }
         //public ICollection<Protocol> Protocols { get; set; }
     }
 }
