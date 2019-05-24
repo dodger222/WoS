@@ -40,7 +40,7 @@ namespace WorkplaceOfSecretary.Controllers
                 string date = dataForList.Date.Day + " " + GetMonth(dataForList) + " " + dataForList.Date.Year;
                 string group = db.Groups.Where(g => g.ID == dataForList.GroupID).FirstOrDefault().NumberOfGroup;
                 string specialty = dataForList.Specialty;
-                List<Student> students = db.Groups.Where(g => g.ID == dataForList.GroupID).FirstOrDefault().Students.ToList();
+                List<Student> students = db.Groups.Where(g => g.ID == dataForList.GroupID).FirstOrDefault().Students.OrderBy(s => s.LastName).ToList();
 
                 Application app = new Application();
                 Document doc = app.Documents.Add(@"F:\Список.docx");
@@ -62,11 +62,11 @@ namespace WorkplaceOfSecretary.Controllers
                 }
 
                 doc.SaveAs(FileName: @"F:\NewСписок.docx");
-
+                app.Documents.Open(@"F:\NewСписок.docx");
                 try
                 {
-                    doc.Close();
-                    app.Quit();
+                    //doc.Close();
+                    //app.Quit();
                 }
                 catch (Exception e)
                 {
